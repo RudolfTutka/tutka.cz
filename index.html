@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Rudolf Tutka — Senior CRM & .NET Developer, Dynamics 365 Specialist. Freelance developer s 25 lety praxe. Remote CZ/EU.">
+  <meta name="keywords" content="Dynamics 365 developer, CRM developer freelance, .NET developer Czech Republic, C# developer, Rudolf Tutka">
+  <title>Rudolf Tutka — CRM & .NET Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #080d18;
+      --bg2:       #0d1526;
+      --bg3:       #111d35;
+      --accent:    #00d4ff;
+      --accent2:   #00ff88;
+      --text:      #e2e8f0;
+      --muted:     #64748b;
+      --border:    rgba(0,212,255,0.15);
+      --card:      rgba(13,21,38,0.8);
+      --mono:      'JetBrains Mono', monospace;
+      --sans:      'DM Sans', sans-serif;
+      --radius:    12px;
+      --transition: 0.3s cubic-bezier(.4,0,.2,1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+    /* ── SELECTION ── */
+    ::selection { background: rgba(0,212,255,0.25); }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(8,13,24,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      transition: var(--transition);
+    }
+
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+    .nav-logo span { color: var(--text); }
+
+    .nav-links {
+      display: flex; gap: 2rem; list-style: none;
+    }
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color var(--transition);
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute; bottom: -4px; left: 0; right: 0;
+      height: 1px; background: var(--accent);
+      transform: scaleX(0); transition: transform var(--transition);
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+    .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
+
+    .burger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 4px;
+    }
+    .burger span {
+      display: block; width: 24px; height: 2px;
+      background: var(--accent); border-radius: 2px;
+      transition: var(--transition);
+    }
+    .burger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .burger.open span:nth-child(2) { opacity: 0; }
+    .burger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 8rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .hero-glow {
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(0,212,255,0.08) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      max-width: 860px;
+      position: relative; z-index: 1;
+    }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--mono); font-size: 0.75rem;
+      color: var(--accent2); background: rgba(0,255,136,0.08);
+      border: 1px solid rgba(0,255,136,0.2);
+      padding: 6px 14px; border-radius: 100px;
+      margin-bottom: 1.5rem;
+      animation: fadeDown 0.6s ease both;
+    }
+    .hero-badge::before { content: '●'; font-size: 0.5rem; animation: pulse 2s infinite; }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .hero-name {
+      font-family: var(--mono);
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 700;
+      line-height: 1.05;
+      margin-bottom: 0.5rem;
+      animation: fadeDown 0.6s 0.1s ease both;
+    }
+    .hero-name .accent { color: var(--accent); }
+
+    .hero-title {
+      font-family: var(--mono);
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+      animation: fadeDown 0.6s 0.2s ease both;
+    }
+
+    .hero-typing {
+      font-family: var(--mono);
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--accent2);
+      min-height: 2em;
+      margin-bottom: 2.5rem;
+      animation: fadeDown 0.6s 0.3s ease both;
+    }
+    .cursor {
+      display: inline-block;
+      width: 2px; height: 1.1em;
+      background: var(--accent2);
+      margin-left: 2px;
+      vertical-align: text-bottom;
+      animation: blink 0.8s step-end infinite;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 580px;
+      margin-bottom: 3rem;
+      animation: fadeDown 0.6s 0.4s ease both;
+    }
+
+    .hero-cta {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      animation: fadeDown 0.6s 0.5s ease both;
+    }
+
+    .btn {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 0.85rem 2rem;
+      border-radius: var(--radius);
+      transition: var(--transition);
+      cursor: pointer;
+      border: none;
+      letter-spacing: 0.03em;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+      box-shadow: 0 0 30px rgba(0,212,255,0.25);
+    }
+    .btn-primary:hover {
+      background: #33dcff;
+      box-shadow: 0 0 50px rgba(0,212,255,0.4);
+      transform: translateY(-2px);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover {
+      border-color: var(--accent);
+      background: rgba(0,212,255,0.05);
+      transform: translateY(-2px);
+    }
+
+    .hero-stats {
+      display: flex; gap: 3rem; margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      animation: fadeDown 0.6s 0.6s ease both;
+      flex-wrap: wrap;
+    }
+    .stat-num {
+      font-family: var(--mono);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 6rem 2rem; }
+    section:nth-child(even) { background: var(--bg2); }
+
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-family: var(--mono);
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+    .section-sub {
+      color: var(--muted);
+      max-width: 560px;
+      margin-bottom: 3.5rem;
+    }
+
+    /* ── REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── CERTIFIKACE ── */
+    .certs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+    .cert-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      display: flex; flex-direction: column; gap: 0.75rem;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .cert-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+    .cert-card:hover {
+      border-color: rgba(0,212,255,0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+    .cert-icon {
+      font-size: 2rem;
+      filter: drop-shadow(0 0 10px rgba(0,212,255,0.4));
+    }
+    .cert-name {
+      font-family: var(--mono);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.4;
+    }
+    .cert-issuer {
+      font-size: 0.8rem;
+      color: var(--accent);
+    }
+
+    /* ── SLUŽBY ── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .service-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      transition: var(--transition);
+    }
+    .service-card:hover {
+      border-color: rgba(0,212,255,0.35);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+    .service-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .service-title {
+      font-family: var(--mono);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    .service-desc {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ── TECHNOLOGIE ── */
+    .tech-grid {
+      display: flex; flex-wrap: wrap; gap: 0.75rem;
+    }
+    .tech-badge {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      padding: 0.5rem 1rem;
+      background: rgba(0,212,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      transition: var(--transition);
+    }
+    .tech-badge:hover {
+      background: rgba(0,212,255,0.12);
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* ── PROJEKTY ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+    .project-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      transform: scaleX(0);
+      transition: transform var(--transition);
+    }
+    .project-card:hover {
+      border-color: rgba(0,212,255,0.35);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+    .project-card:hover::after { transform: scaleX(1); }
+
+    .project-tag {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      padding: 3px 10px;
+      border-radius: 100px;
+      background: rgba(0,255,136,0.1);
+      color: var(--accent2);
+      border: 1px solid rgba(0,255,136,0.2);
+      margin-bottom: 1rem;
+      display: inline-block;
+    }
+    .project-title {
+      font-family: var(--mono);
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+    .project-desc {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ── KARIÉRA TIMELINE ── */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute; top: 0; bottom: 0; left: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+    }
+    .timeline-item {
+      position: relative;
+      padding: 0 0 3rem 2.5rem;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute; left: -5px; top: 6px;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 2px solid var(--accent);
+      box-shadow: 0 0 12px rgba(0,212,255,0.5);
+    }
+    .timeline-item.current::before {
+      background: var(--accent);
+      animation: pulse-dot 2s infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { box-shadow: 0 0 12px rgba(0,212,255,0.5); }
+      50% { box-shadow: 0 0 24px rgba(0,212,255,0.9); }
+    }
+    .timeline-period {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+      margin-bottom: 0.25rem;
+    }
+    .timeline-company {
+      font-family: var(--mono);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+    .timeline-role {
+      font-size: 0.9rem;
+      color: var(--accent2);
+      margin-bottom: 0.5rem;
+    }
+    .timeline-desc {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ── O MNĚ ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .about-text p {
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+    .about-text p strong { color: var(--text); }
+    .about-facts {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+    }
+    .fact-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      text-align: center;
+      transition: var(--transition);
+    }
+    .fact-card:hover {
+      border-color: rgba(0,212,255,0.35);
+      transform: translateY(-3px);
+    }
+    .fact-icon { font-size: 1.75rem; margin-bottom: 0.5rem; display: block; }
+    .fact-label { font-size: 0.8rem; color: var(--muted); }
+
+    /* ── KONTAKT ── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .contact-info h3 {
+      font-family: var(--mono);
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+    .contact-info p {
+      color: var(--muted);
+      margin-bottom: 2rem;
+      line-height: 1.8;
+    }
+    .contact-link {
+      display: flex; align-items: center; gap: 0.75rem;
+      color: var(--accent);
+      text-decoration: none;
+      font-family: var(--mono);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      transition: color var(--transition);
+    }
+    .contact-link:hover { color: var(--accent2); }
+
+    form {
+      display: flex; flex-direction: column; gap: 1rem;
+    }
+    input, textarea {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.9rem 1.2rem;
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 0.95rem;
+      transition: border-color var(--transition);
+      outline: none;
+      width: 100%;
+    }
+    input::placeholder, textarea::placeholder { color: var(--muted); }
+    input:focus, textarea:focus { border-color: var(--accent); }
+    textarea { resize: vertical; min-height: 140px; }
+
+    .form-success {
+      display: none;
+      padding: 1rem;
+      background: rgba(0,255,136,0.1);
+      border: 1px solid rgba(0,255,136,0.3);
+      border-radius: var(--radius);
+      color: var(--accent2);
+      font-family: var(--mono);
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+    }
+    footer p {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+    footer a:hover { color: var(--accent2); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.25rem; }
+      .burger { display: flex; }
+      .nav-links {
+        display: none;
+        position: fixed; top: 65px; left: 0; right: 0;
+        background: rgba(8,13,24,0.97);
+        backdrop-filter: blur(20px);
+        flex-direction: column; gap: 0;
+        border-bottom: 1px solid var(--border);
+      }
+      .nav-links.open { display: flex; }
+      .nav-links li { border-bottom: 1px solid var(--border); }
+      .nav-links a {
+        display: block; padding: 1rem 1.5rem;
+        font-size: 0.9rem;
+      }
+      .nav-links a::after { display: none; }
+
+      section { padding: 4rem 1.25rem; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .hero-stats { gap: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">tutka<span>.cz</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#certifikace">Certifikace</a></li>
+    <li><a href="#sluzby">Služby</a></li>
+    <li><a href="#projekty">Projekty</a></li>
+    <li><a href="#kariera">Kariéra</a></li>
+    <li><a href="#omne">O mně</a></li>
+    <li><a href="#kontakt">Kontakt</a></li>
+  </ul>
+  <div class="burger" id="burger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <h1 class="hero-name">Rudolf<br><span class="accent">Tutka</span> <span style="font-size:0.45em;color:var(--muted);font-weight:400;">Bc.</span></h1>
+    <p class="hero-title">Senior CRM & .NET Developer</p>
+    <div class="hero-typing">
+      <span id="typing-text"></span><span class="cursor"></span>
+    </div>
+    <p class="hero-desc">
+      Specialista na Microsoft Dynamics 365 CRM a .NET ekosystém s 25+ lety komerční praxe.
+      Pracuji remote pro klienty v ČR, SR a celé EU.
+    </p>
+    <div class="hero-cta">
+      <a href="#kontakt" class="btn btn-primary">Kontaktuj mě</a>
+      <a href="#projekty" class="btn btn-outline">Moje projekty</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">25+</div>
+        <div class="stat-label">let praxe</div>
+      </div>
+      <div>
+        <div class="stat-num">15+</div>
+        <div class="stat-label">aktivních projektů</div>
+      </div>
+      <div>
+        <div class="stat-num">3×</div>
+        <div class="stat-label">Microsoft Certified</div>
+      </div>
+      <div>
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Remote</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFIKACE -->
+<section id="certifikace">
+  <div class="container">
+    <p class="section-label reveal">// certifikace</p>
+    <h2 class="section-title reveal">Microsoft Certified</h2>
+    <p class="section-sub reveal">Tři aktivní Microsoft certifikace v oblasti Power Platform a Dynamics 365.</p>
+    <div class="certs-grid">
+      <div class="cert-card reveal">
+        <div class="cert-icon">🏆</div>
+        <div class="cert-name">Power Platform Developer Expert</div>
+        <div class="cert-issuer">Microsoft · aktivní do srpna 2026</div>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-icon">🏆</div>
+        <div class="cert-name">Power Platform Functional Consultant Associate</div>
+        <div class="cert-issuer">Microsoft · aktivní do srpna 2027</div>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-icon">🏆</div>
+        <div class="cert-name">Power Platform Fundamentals</div>
+        <div class="cert-issuer">Microsoft · aktivní</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLUŽBY -->
+<section id="sluzby">
+  <div class="container">
+    <p class="section-label reveal">// co dělám</p>
+    <h2 class="section-title reveal">Služby</h2>
+    <p class="section-sub reveal">Od CRM customizace přes backend vývoj až po IoT řešení — pokrývám celý stack moderního enterprise vývoje.</p>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <span class="service-icon">⚙️</span>
+        <div class="service-title">Microsoft Dynamics 365 CRM</div>
+        <div class="service-desc">Customizace, pluginy v C#, JavaScript, PCF controls, ribbon customizace, BPF (Business Process Flow), integrace s externími systémy.</div>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-icon">🔷</span>
+        <div class="service-title">.NET / C# vývoj</div>
+        <div class="service-desc">Backendové aplikace, Windows Services, REST API, desktop aplikace. Od architektury po nasazení.</div>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-icon">🌐</span>
+        <div class="service-title">Webové aplikace</div>
+        <div class="service-desc">MVC webové aplikace, fakturační systémy, analytické dashboardy, databázové řešení (SQLite, PostgreSQL, MS SQL Server).</div>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-icon">📱</span>
+        <div class="service-title">RESCO Mobile CRM</div>
+        <div class="service-desc">Mobilní CRM řešení pro field-service týmy. Customizace, konfigurace a nasazení RESCO Mobile CRM na míru potřebám klienta.</div>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-icon">🤖</span>
+        <div class="service-title">Android aplikace</div>
+        <div class="service-desc">Vývoj nativních Android aplikací — od firemních nástrojů přes utility až po aplikace propojené s podnikovými systémy a CRM.</div>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-icon">🔌</span>
+        <div class="service-title">IoT & Smart Home</div>
+        <div class="service-desc">Vlastní C# aplikace pro vzdálené ovládání klimatizace a smart home zařízení. Arduino projekty — HW prototypy, senzory, automatizace.</div>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-icon">🔍</span>
+        <div class="service-title">Převzetí a záchrana projektů</div>
+        <div class="service-desc">Orientace v cizím kódu, převzetí projektu po předchozím vývojáři, analýza stávajícího řešení a pokračování ve vývoji tam, kde to jiný nedotáhl.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECHNOLOGIE -->
+<section id="technologie">
+  <div class="container">
+    <p class="section-label reveal">// stack</p>
+    <h2 class="section-title reveal">Technologie</h2>
+    <p class="section-sub reveal">25 let v terénu — od Visual Basicu přes Xamarin až po moderní cloudové CRM a IoT.</p>
+    <div class="tech-grid reveal">
+      <span class="tech-badge">Dynamics 365</span>
+      <span class="tech-badge">C#</span>
+      <span class="tech-badge">.NET</span>
+      <span class="tech-badge">JavaScript</span>
+      <span class="tech-badge">Power Platform</span>
+      <span class="tech-badge">PCF Controls</span>
+      <span class="tech-badge">RESCO Mobile CRM</span>
+      <span class="tech-badge">Entity Framework</span>
+      <span class="tech-badge">PostgreSQL</span>
+      <span class="tech-badge">SQLite</span>
+      <span class="tech-badge">MS SQL Server</span>
+      <span class="tech-badge">Android</span>
+      <span class="tech-badge">Arduino</span>
+      <span class="tech-badge">Azure</span>
+      <span class="tech-badge">Git</span>
+      <span class="tech-badge">Visual Basic</span>
+      <span class="tech-badge">REST API</span>
+      <span class="tech-badge">Windows Services</span>
+    </div>
+  </div>
+</section>
+
+<!-- PROJEKTY -->
+<section id="projekty">
+  <div class="container">
+    <p class="section-label reveal">// reference</p>
+    <h2 class="section-title reveal">Vybrané projekty</h2>
+    <p class="section-sub reveal">Ukázka z portfolia — od enterprise CRM po vlastní IoT řešení.</p>
+    <div class="projects-grid">
+      <div class="project-card reveal">
+        <span class="project-tag">CRM · Manufacturing · Globální rollout</span>
+        <div class="project-title">CRM pro globálního výrobce</div>
+        <div class="project-desc">CRM customizace pro mezinárodní výrobní firmu — BPF omezení, opportunity management, ribbon tlačítka, JavaScript automatizace obchodních procesů. Nasazení ve 25+ zemích.</div>
+      </div>
+      <div class="project-card reveal">
+        <span class="project-tag">.NET · Web App</span>
+        <div class="project-title">InvoiceWeb — Fakturační systém</div>
+        <div class="project-desc">Vlastní fakturační webová aplikace postavená na .NET MVC s analytickým dashboardem, SQLite/PostgreSQL databází a správou firemních dat.</div>
+      </div>
+      <div class="project-card reveal">
+        <span class="project-tag">C# · IoT · Smart Home</span>
+        <div class="project-title">AC Controller — Klimatizace</div>
+        <div class="project-desc">Vlastní C# Windows Service pro vzdálené ovládání klimatizace Samsung AC. SSL/TLS komunikace přes PFX certifikát, Sonoff smart plugy, home automation.</div>
+      </div>
+      <div class="project-card reveal">
+        <span class="project-tag">Arduino · Hardware</span>
+        <div class="project-title">Arduino projekty</div>
+        <div class="project-desc">Vlastní HW prototypy pro automatizaci domácnosti — IoT senzory, řídicí jednotky, DIY elektronika. Propojení fyzického světa se softwarovými systémy.</div>
+      </div>
+      <div class="project-card reveal">
+        <span class="project-tag">Chrome Extension</span>
+        <div class="project-title">Dynamics CRM Data Extractor</div>
+        <div class="project-desc">Chrome rozšíření pro export CRM dat do ZIP/JSON archivů. LCID/country detekce, oneTimeUrl POST funkcionalita pro bezpečný přenos dat.</div>
+      </div>
+      <div class="project-card reveal">
+        <span class="project-tag">CRM · Enterprise · Pojišťovnictví</span>
+        <div class="project-title">Pojišťovací CRM systém</div>
+        <div class="project-desc">Komplexní CRM řešení pro velkou pojišťovnu — ServiceHub, Client360, ECM správa dokumentů, integrace s externími systémy. Dynamics 365 customizace na míru.</div>
+      </div>
+      <div class="project-card reveal">
+        <span class="project-tag">.NET · Document Management</span>
+        <div class="project-title">ERMS — Správa dokumentů</div>
+        <div class="project-desc">Electronic Record Management System — analýza a vývoj systému pro elektronickou správu dokumentů a záznamů (FUTURA SOFT).</div>
+      </div>
+      <div class="project-card reveal">
+        <span class="project-tag">.NET · WMS · Logistika</span>
+        <div class="project-title">SmartStock WMS</div>
+        <div class="project-desc">On-line systém řízení skladů s mobilními terminály — SmartStock WMS, SmartOperation modul a SmartServer pro automatické datové operace (Barco).</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KARIÉRA -->
+<section id="kariera">
+  <div class="container">
+    <p class="section-label reveal">// history</p>
+    <h2 class="section-title reveal">Kariéra</h2>
+    <p class="section-sub reveal">25 let vývoje — od prvních databázových aplikací přes WMS a mobilní vývoj až po Dynamics 365 CRM specialistu.</p>
+    <div class="timeline">
+      <div class="timeline-item current reveal">
+        <div class="timeline-period">2017 — současnost</div>
+        <div class="timeline-company">LLP Group</div>
+        <div class="timeline-role">CRM Developer · Praha (remote)</div>
+        <div class="timeline-desc">Dynamics 365 CRM — pluginy (C#), JavaScript, PCF controls, ribbon customizace, BPF. Projekty pro UNIQA, Dormer Pramet a další. ~15 aktivních projektů souběžně.</div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-period">2012 — 2017</div>
+        <div class="timeline-company">FUTURA SOFT, s.r.o.</div>
+        <div class="timeline-role">Senior .NET Developer · Uherské Hradiště</div>
+        <div class="timeline-desc">Mobilní vývoj iOS + Android, analýza a vývoj ERMS (Electronic Record Management System), webové aplikace.</div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-period">2011 — 2012</div>
+        <div class="timeline-company">NEXTDATA s.r.o.</div>
+        <div class="timeline-role">Senior .NET Developer · Uherské Hradiště</div>
+        <div class="timeline-desc">Vývoj video loterijního systému, hry pro Windows Embedded 7 (Microsoft XNA), serverová část losování her.</div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-period">2008 — 2011</div>
+        <div class="timeline-company">ecommerce.cz, a.s.</div>
+        <div class="timeline-role">Senior .NET Developer · Staré Město</div>
+        <div class="timeline-desc">Vývoj webových aplikací a e-commerce systémů na platformě .NET.</div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-period">2004 — 2008</div>
+        <div class="timeline-company">Barco s.r.o.</div>
+        <div class="timeline-role">.NET Developer · Zlínský kraj</div>
+        <div class="timeline-desc">SmartStock WMS — on-line řízení skladů mobilními terminály. SmartOperation modul, SmartServer pro automatické datové operace.</div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-period">~2000 — 2004</div>
+        <div class="timeline-company">CGS s.r.o.</div>
+        <div class="timeline-role">Developer · Slovensko</div>
+        <div class="timeline-desc">Databázové aplikace pro geodety v prostředí Visual Basic a C#. Začátek komerční kariéry v IT.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- O MNĚ -->
+<section id="omne">
+  <div class="container">
+    <p class="section-label reveal">// about</p>
+    <h2 class="section-title reveal">O mně</h2>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>
+          Jsem <strong>senior freelance developer</strong> se sídlem ve Veselí nad Moravou. Programuji komerčně přes <strong>25 let</strong> — od prvních databázových aplikací pro geodety na Slovensku, přes WMS systémy, mobilní vývoj a e-commerce, až po dnešní specializaci na <strong>Microsoft Dynamics 365 CRM</strong>.
+        </p>
+        <p>
+          Prošel jsem celou evolucí .NET ekosystému — Visual Basic, C#, Xamarin, až po moderní cloudové CRM a Power Platform. Mám <strong>Bc. titul v IT</strong> (Informační technologie, obor Elektronické počítače) z Evropského polytechnického institutu v Kunovicích.
+        </p>
+        <p>
+          Mimo práci aktivně hraju v rockové kapele na bicí, basu a kytaru. Nadšenec do chytré domácnosti, 3D tisku a IoT projektů — rád kombinuji software s hardwarem.
+        </p>
+        <a href="#kontakt" class="btn btn-outline" style="display:inline-flex;margin-top:1rem;">Napište mi →</a>
+      </div>
+      <div class="about-facts reveal">
+        <div class="fact-card">
+          <span class="fact-icon">🎓</span>
+          <div class="fact-label">Bc. Informační technologie</div>
+        </div>
+        <div class="fact-card">
+          <span class="fact-icon">🥁</span>
+          <div class="fact-label">Bicí, basa, kytara</div>
+        </div>
+        <div class="fact-card">
+          <span class="fact-icon">🏠</span>
+          <div class="fact-label">Smart Home & IoT</div>
+        </div>
+        <div class="fact-card">
+          <span class="fact-icon">🖨️</span>
+          <div class="fact-label">3D tisk a modelování</div>
+        </div>
+        <div class="fact-card">
+          <span class="fact-icon">📡</span>
+          <div class="fact-label">Arduino projekty</div>
+        </div>
+        <div class="fact-card">
+          <span class="fact-icon">📈</span>
+          <div class="fact-label">Investování</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KONTAKT -->
+<section id="kontakt">
+  <div class="container">
+    <p class="section-label reveal">// kontakt</p>
+    <h2 class="section-title reveal">Spolupracujme</h2>
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <h3>Máte projekt? Napište mi.</h3>
+        <p>Hledáte specialistu na Dynamics 365 CRM, .NET development nebo webové aplikace? Pracuji remote pro klienty v ČR, SR i celé EU. Rád si promluvíme o vašem projektu.</p>
+        <a href="mailto:rudolf@tutka.cz" class="contact-link">
+          <span>📧</span> rudolf@tutka.cz
+        </a>
+        <a href="https://www.linkedin.com/in/rudolf-tutka/" target="_blank" class="contact-link">
+          <span>💼</span> linkedin.com/in/rudolf-tutka
+        </a>
+        <a href="https://www.tutka.cz" class="contact-link">
+          <span>🌐</span> www.tutka.cz
+        </a>
+      </div>
+      <div class="reveal">
+        <form id="contactForm" action="https://formspree.io/f/TVUJ_KOD" method="POST">
+          <input type="text" name="name" placeholder="Vaše jméno" required>
+          <input type="email" name="email" placeholder="Váš e-mail" required>
+          <input type="text" name="subject" placeholder="Předmět">
+          <textarea name="message" placeholder="Popište váš projekt nebo dotaz..." required></textarea>
+          <button type="submit" class="btn btn-primary">Odeslat zprávu →</button>
+        </form>
+        <div class="form-success" id="formSuccess">
+          ✓ Zpráva odeslána! Ozvu se co nejdříve.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 Rudolf Tutka · <a href="https://www.linkedin.com/in/rudolf-tutka/" target="_blank">LinkedIn</a> · Veselí nad Moravou · <a href="mailto:rudolf@tutka.cz">rudolf@tutka.cz</a></p>
+</footer>
+
+<script>
+  // ── MOBILE MENU ──
+  const burger = document.getElementById('burger');
+  const navLinks = document.getElementById('navLinks');
+  burger.addEventListener('click', () => {
+    burger.classList.toggle('open');
+    navLinks.classList.toggle('open');
+  });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      burger.classList.remove('open');
+      navLinks.classList.remove('open');
+    });
+  });
+
+  // ── TYPING EFFECT ──
+  const phrases = [
+    'Dynamics 365 Specialist',
+    '.NET & C# Expert',
+    'CRM Customization',
+    'Remote Freelancer',
+    'IoT & Arduino Enthusiast'
+  ];
+  let pi = 0, ci = 0, deleting = false;
+  const el = document.getElementById('typing-text');
+  function type() {
+    const phrase = phrases[pi];
+    if (!deleting) {
+      el.textContent = phrase.slice(0, ++ci);
+      if (ci === phrase.length) { deleting = true; setTimeout(type, 1800); return; }
+    } else {
+      el.textContent = phrase.slice(0, --ci);
+      if (ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; }
+    }
+    setTimeout(type, deleting ? 50 : 80);
+  }
+  setTimeout(type, 1000);
+
+  // ── SCROLL REVEAL ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // ── ACTIVE NAV ──
+  const sections = document.querySelectorAll('section[id]');
+  const navAs = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) cur = s.id;
+    });
+    navAs.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + cur);
+    });
+  }, { passive: true });
+
+  // ── FORMSPREE AJAX ──
+  const form = document.getElementById('contactForm');
+  const success = document.getElementById('formSuccess');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = form.querySelector('button');
+    btn.textContent = 'Odesílám...';
+    btn.disabled = true;
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' }
+      });
+      if (res.ok) {
+        form.style.display = 'none';
+        success.style.display = 'block';
+      } else {
+        btn.textContent = 'Chyba — zkuste znovu';
+        btn.disabled = false;
+      }
+    } catch {
+      btn.textContent = 'Chyba — zkuste znovu';
+      btn.disabled = false;
+    }
+  });
+</script>
+</body>
+</html>
