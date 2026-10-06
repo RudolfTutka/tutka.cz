@@ -447,6 +447,67 @@
       line-height: 1.7;
     }
 
+    .project-featured {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 2.5rem;
+      align-items: center;
+      border-color: rgba(0,212,255,0.3);
+    }
+    .project-featured-head {
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: 0.75rem;
+    }
+    .project-featured-head img {
+      width: 56px; height: 56px;
+      border-radius: 12px;
+      flex-shrink: 0;
+    }
+    .project-featured-head .project-title {
+      font-size: 1.4rem;
+      margin-bottom: 0.15rem;
+    }
+    .project-meta {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+    .project-features {
+      list-style: none;
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+      margin: 1.25rem 0 1.75rem;
+    }
+    .project-features li {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: rgba(0,212,255,0.06);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .project-actions {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 1rem;
+    }
+    .project-actions .btn { display: inline-block; }
+    .project-link {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .project-link:hover { color: var(--accent); }
+    .project-shot {
+      display: block;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+    }
+    .project-shot img { display: block; width: 100%; height: auto; }
+
     /* ── KARIÉRA TIMELINE ── */
     .timeline {
       position: relative;
@@ -634,6 +695,7 @@
 
       section { padding: 4rem 1.25rem; }
       .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .project-featured { grid-template-columns: 1fr; gap: 1.75rem; }
       .hero-stats { gap: 1.5rem; }
     }
   </style>
@@ -803,6 +865,38 @@
     <h2 class="section-title reveal">Vybrané projekty</h2>
     <p class="section-sub reveal">Ukázka z portfolia — od enterprise CRM po vlastní IoT řešení.</p>
     <div class="projects-grid">
+      <div class="project-card project-featured reveal">
+        <div>
+          <span class="project-tag">Chrome Extension · Dynamics 365</span>
+          <div class="project-featured-head">
+            <img src="img/rtu-dev-tools-icon.png" alt="Ikona RTU Dev Tools" width="56" height="56">
+            <div>
+              <div class="project-title">RTU Dev Tools</div>
+              <div class="project-meta">zdarma · Chrome Web Store · EN / CZ</div>
+            </div>
+          </div>
+          <div class="project-desc">Moje rozšíření do Chromu, které zrychluje vývoj, úpravy a dohledávání v Microsoft Dynamics 365 / Power Apps — přímo v prohlížeči, s vlastním přihlášením. Vše se zpracovává lokálně, žádná data neopouštějí prohlížeč.</div>
+          <ul class="project-features">
+            <li>Odemknutí formuláře</li>
+            <li>Logické názvy polí</li>
+            <li>Plug-in Trace Viewer</li>
+            <li>Form Scripts + DevTools panel</li>
+            <li>Metadata Browser</li>
+            <li>Plug-in Viewer</li>
+            <li>Všechna data záznamu</li>
+            <li>Hledání záznamů</li>
+            <li>Task Analyzer</li>
+            <li>Impersonace</li>
+          </ul>
+          <div class="project-actions">
+            <a href="https://chromewebstore.google.com/detail/rtu-dev-tools/oigedndnbofmccdjpmolllchbdblaibj" class="btn btn-primary" target="_blank" rel="noopener">Přidat do Chromu →</a>
+            <a href="rtu-privacy.html" class="project-link">Ochrana soukromí</a>
+          </div>
+        </div>
+        <a href="https://chromewebstore.google.com/detail/rtu-dev-tools/oigedndnbofmccdjpmolllchbdblaibj" class="project-shot" target="_blank" rel="noopener">
+          <img src="img/rtu-dev-tools-screenshot.png" alt="RTU Dev Tools — nabídka nástrojů nad formulářem Dynamics 365" width="1280" height="800" loading="lazy">
+        </a>
+      </div>
       <div class="project-card reveal">
         <span class="project-tag">CRM · Manufacturing · Globální rollout</span>
         <div class="project-title">CRM pro globálního výrobce</div>
