@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Privacy Policy – RTU Dev Tools</title>
+<title>RTU Dev Tools Privacy Policy</title>
 <style>
 body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; max-width: 760px; margin: 0 auto; padding: 24px 16px 48px; line-height: 1.55; color: #1f2328; background: #fff; }
 h1 { font-size: 1.7rem; } h2 { margin-top: 2rem; }
@@ -14,56 +14,64 @@ a { color: #0969da; }
 </style>
 </head>
 <body>
-<h1>Privacy Policy – RTU Dev Tools</h1>
+<h1>RTU Dev Tools Privacy Policy</h1>
 <hr>
 <h2 lang="en">English</h2>
-<p><strong>Last updated:</strong> 3 October 2026</p>
+<p><strong>Last updated:</strong> 21 October 2026</p>
 <p>RTU Dev Tools ("the extension") is a developer tool that works with Microsoft Dynamics 365 / Power Apps model-driven apps, published by Rudolf Tutka (<a href="mailto:rudolf@tutka.cz">rudolf@tutka.cz</a>).</p>
 <p><strong>Data handling.</strong> To provide its features, the extension processes personal and business data from your Dynamics 365 environment (for example user names, record values, metadata, plug-in trace logs) <strong>only locally in your browser</strong>. It does <strong>not store this data on any server, sell it, or transmit it</strong> to the developer or to any third party. It contains no analytics, tracking, advertising or telemetry.</p>
 <p><strong>How data is processed.</strong> All processing happens on Dynamics 365 pages you open (<code>*.dynamics.com</code>, or a server address you add yourself), using your existing signed-in session and your own Dynamics 365 permissions:</p>
 <ul>
-<li>it reads form, record and metadata information, plug-in trace logs, form scripts and plug-in registrations from your Dynamics 365 environment and shows them to you;</li>
-<li>it can change form appearance on the client only (e.g. unlock or show fields, show logical names) — this never saves the record;</li>
-<li>it makes changes in Dynamics 365 only in these cases, always on your explicit action:</li>
-</ul>
+<li>it reads form, record and metadata information, plug-in trace logs, form scripts, plug-in registrations and customizations (processes, custom APIs, web resources, forms, views) from your Dynamics 365 environment and shows them to you;</li>
+<li>it can change form appearance on the client only (e.g. unlock or show fields, show logical names); this never saves the record;</li>
+<li>on your explicit action in the field information window, it can set a field value on the open form only; the extension never saves the form, you save it as usual. If the form has Dynamics 365 auto-save turned on, Dynamics 365 itself may save the change; the extension warns you about this before you apply the value;</li>
+<li>it makes changes in Dynamics 365 only in these cases, always on your explicit action:
 <ol>
 <li>the Plug-in Trace Log setting, after you confirm it in a dialog;</li>
-<li>values of a single record that you edit on the "All record data" page — you see a summary of old and new values and confirm it before saving; the change is saved with your own permissions and Dynamics 365 business logic (plug-ins, validation, auditing) applies;</li>
-<li><strong>impersonation</strong> — while you have impersonation turned on for one browser tab, the extension adds the <code>MSCRMCallerID</code> header to that tab's Dynamics 365 Web API requests (<code>/api/data/</code>), so they run as the user you selected (this requires your own Dynamics 365 privilege "Act on Behalf of Another User"; Dynamics 365 audits the change with both identities). Impersonation is clearly marked in the tab and ends when you turn it off, close the tab, leave that organization or restart the browser.</li>
+<li>values of a single record that you edit on the "All record data" page: you see a summary of old and new values and confirm it before saving; the change is saved with your own permissions and Dynamics 365 business logic (plug-ins, validation, auditing) applies. In developer mode you can also try to write to fields that are normally read-only; the extension then shows which values Dynamics 365 did not accept.</li>
+<li>the content of a single JavaScript, HTML or CSS web resource that you edit in Form Scripts: you see the changes and confirm them; only that web resource is saved and published (unmanaged web resources only);</li>
+<li><strong>impersonation</strong>: while you have impersonation turned on for one browser tab, the extension adds the <code>MSCRMCallerID</code> header to that tab's Dynamics 365 Web API requests (<code>/api/data/</code>), so they run as the user you selected (this requires your own Dynamics 365 privilege "Act on Behalf of Another User"; Dynamics 365 audits the change with both identities). Impersonation is clearly marked in the tab and ends when you turn it off, close the tab, leave that organization or restart the browser.</li>
 </ol>
-<p>The extension never creates or deletes records itself and never performs bulk changes.</p>
-<p>Data read from Dynamics 365 is kept only in the memory of the extension page while it is open and is not sent anywhere. Secure configuration of plug-in steps is never read.</p>
-<p>If you add an on-premise or custom Dynamics 365 server address in Settings, the extension asks Chrome for access to that address only and works there in the same way; you can remove it at any time. The "Donate with PayPal" button in Settings is a plain link that opens PayPal in a new tab — the extension sends no data to PayPal.</p>
-<p><strong>Local storage.</strong> The extension stores only your language preference and Plug-in Viewer filter (<code>chrome.storage.local</code>), temporary UI state such as which fields were unlocked, and the active impersonation per tab — the selected user's ID and name (<code>chrome.storage.session</code>, cleared when the browser closes). This data never leaves your browser.</p>
+</li>
+</ul>
+<p>The extension never creates or deletes records itself and never performs bulk changes. Each action is labelled in the interface as READ, LOCAL or WRITE before you run it.</p>
+<p>Data read from Dynamics 365 is kept only in the memory of the extension page while it is open and is not sent anywhere. Secure configuration of plug-in steps is never read. Plug-in step configuration and the configuration and profile of plug-in trace logs are shown as <code>********</code>; a single value is read only when you click to show it, and it is never included in copies, exports or the AI snapshot.</p>
+<p><strong>Analyze Current Context.</strong> On your click, the extension builds a text summary of the current form and its customization (environment, table, form, fields, relationships, plug-in steps) that you can copy or download, for example to paste into an AI assistant of your choice. Record values and plug-in trace logs are included only if you tick them. The extension itself sends the summary nowhere.</p>
+<p>If you add an on-premise or custom Dynamics 365 server address in Settings, the extension asks Chrome for access to that address only and works there in the same way; you can remove it at any time. The "Donate with PayPal" button in Settings is a plain link that opens PayPal in a new tab. The extension sends no data to PayPal.</p>
+<p><strong>Local storage.</strong> The extension stores only your preferences: language, light or dark theme, dismissed tips and the Plug-in Viewer filter (<code>chrome.storage.local</code>). Temporary state is kept in <code>chrome.storage.session</code> and cleared when the browser closes: which form controls were unlocked and their original labels (per tab and record), cached ribbon command definitions (customization only, no record data), whether form debugging is turned on in the tab and for which organization address, and the active impersonation per tab (the selected user's ID, name and login and the organization address). This data never leaves your browser.</p>
 <p><strong>Clipboard and downloads.</strong> Text is copied to your clipboard or downloaded as a file only when you click the corresponding button.</p>
-<p><strong>External links.</strong> The extension opens make.powerapps.com, www.tutka.cz or PayPal in a new tab only when you click the link; no data is sent with these links.</p>
-<p><strong>Permissions.</strong> <code>activeTab</code>, <code>scripting</code> and host access to <code>https://*.dynamics.com/*</code> are used solely to run the features above on Dynamics 365 pages; optional host access is requested only for a server address you add in Settings; <code>storage</code> for the preferences and state described above; <code>declarativeContent</code> to enable the toolbar icon only on Dynamics 365 pages; <code>declarativeNetRequestWithHostAccess</code> only for impersonation in a single tab as described above — no other requests or headers are modified.</p>
+<p><strong>External links.</strong> The extension opens make.powerapps.com, learn.microsoft.com, www.tutka.cz or PayPal in a new tab only when you click the link. The link to the form editor on make.powerapps.com contains the environment, solution and form identifiers so that Microsoft's editor opens the right form; no other data is sent with these links.</p>
+<p><strong>Permissions.</strong> <code>activeTab</code>, <code>scripting</code> and host access to <code>https://*.dynamics.com/*</code> are used solely to run the features above on Dynamics 365 pages; optional host access is requested only for a server address you add in Settings; <code>storage</code> for the preferences and state described above; <code>declarativeContent</code> to enable the toolbar icon only on Dynamics 365 pages; <code>declarativeNetRequestWithHostAccess</code> only for impersonation in a single tab as described above. No other requests or headers are modified.</p>
 <p><strong>Limited Use.</strong> The use of information received by the extension adheres to the Chrome Web Store User Data Policy, including the Limited Use requirements.</p>
 <p><strong>Not affiliated with Microsoft.</strong> Microsoft, Dynamics 365 and Power Apps are trademarks of the Microsoft group of companies. This extension is not affiliated with or endorsed by Microsoft.</p>
 <p><strong>Contact.</strong> <a href="mailto:rudolf@tutka.cz">rudolf@tutka.cz</a></p>
 <hr>
 <h2 lang="cs">Česky</h2>
-<p><strong>Poslední aktualizace:</strong> 3. října 2026</p>
+<p><strong>Poslední aktualizace:</strong> 21. října 2026</p>
 <p>RTU Dev Tools („rozšíření") je vývojářský nástroj pro model-driven aplikace Microsoft Dynamics 365 / Power Apps; vydavatel Rudolf Tutka (<a href="mailto:rudolf@tutka.cz">rudolf@tutka.cz</a>).</p>
 <p><strong>Nakládání s daty.</strong> Kvůli svým funkcím rozšíření zpracovává osobní a firemní data z vašeho prostředí Dynamics 365 (např. jména uživatelů, hodnoty záznamů, metadata, plug-in trace logy) <strong>jen lokálně ve vašem prohlížeči</strong>. Tato data <strong>neukládá na žádný server, neprodává ani neodesílá</strong> vydavateli ani třetím stranám. Neobsahuje analytiku, sledování, reklamu ani telemetrii.</p>
 <p><strong>Zpracování dat.</strong> Veškeré zpracování probíhá na stránkách Dynamics 365, které otevřete (<code>*.dynamics.com</code> nebo adresa serveru, kterou sami přidáte), s vaším přihlášením a vašimi oprávněními v Dynamics 365:</p>
 <ul>
-<li>čte informace o formuláři, záznamu a metadatech, plug-in trace logy, skripty formuláře a registrace pluginů a zobrazuje je vám;</li>
-<li>mění vzhled formuláře v prohlížeči (např. odemknutí či zobrazení polí, logické názvy) — tím se záznam nikdy neukládá;</li>
-<li>změny v Dynamics 365 provádí jen v těchto případech, vždy na váš výslovný pokyn:</li>
-</ul>
+<li>čte informace o formuláři, záznamu a metadatech, plug-in trace logy, skripty formuláře, registrace pluginů a přizpůsobení (procesy, Custom API, webresources, formuláře, pohledy) a zobrazuje je vám;</li>
+<li>mění vzhled formuláře v prohlížeči (např. odemknutí či zobrazení polí, logické názvy); tím se záznam nikdy neukládá;</li>
+<li>na váš výslovný pokyn v okně polí umí nastavit hodnotu pole jen na otevřeném formuláři; rozšíření formulář nikdy neukládá, uložíte ho jako obvykle. Má-li formulář zapnuté automatické ukládání Dynamics 365, může změnu uložit samo Dynamics 365; rozšíření vás na to před použitím hodnoty upozorní;</li>
+<li>změny v Dynamics 365 provádí jen v těchto případech, vždy na váš výslovný pokyn:
 <ol>
 <li>nastavení Plug-in Trace Log, po potvrzení v dialogu;</li>
-<li>hodnoty jednoho záznamu, které upravíte na stránce „Všechna data záznamu" — před uložením vidíte a potvrdíte souhrn starých a nových hodnot; změna se uloží s vašimi oprávněními a uplatní se business logika Dynamics 365 (pluginy, validace, audit);</li>
-<li><strong>impersonace</strong> — dokud máte v jednom tabu prohlížeče zapnutou impersonaci, rozšíření přidává k požadavkům tohoto tabu na Web API Dynamics 365 (<code>/api/data/</code>) hlavičku <code>MSCRMCallerID</code>, takže běží jménem vybraného uživatele (vyžaduje vaše oprávnění „Act on Behalf of Another User"; Dynamics 365 zaznamená do auditu obě identity). Impersonace je v tabu výrazně označená a skončí vypnutím, zavřením tabu, odchodem z organizace nebo restartem prohlížeče.</li>
+<li>hodnoty jednoho záznamu, které upravíte na stránce „Všechna data záznamu": před uložením vidíte a potvrdíte souhrn starých a nových hodnot; změna se uloží s vašimi oprávněními a uplatní se business logika Dynamics 365 (pluginy, validace, audit). V režimu vývojáře můžete zkusit zapsat i do polí, která jsou běžně jen pro čtení; rozšíření pak ukáže, které hodnoty Dynamics 365 nepřijalo.</li>
+<li>obsah jedné JavaScript, HTML nebo CSS webresource, kterou upravíte ve Form Scripts: vidíte změny a potvrdíte je; uloží a publikuje se jen tato webresource (jen nespravované webresources);</li>
+<li><strong>impersonace</strong>: dokud máte v jednom tabu prohlížeče zapnutou impersonaci, rozšíření přidává k požadavkům tohoto tabu na Web API Dynamics 365 (<code>/api/data/</code>) hlavičku <code>MSCRMCallerID</code>, takže běží jménem vybraného uživatele (vyžaduje vaše oprávnění „Act on Behalf of Another User"; Dynamics 365 zaznamená do auditu obě identity). Impersonace je v tabu výrazně označená a skončí vypnutím, zavřením tabu, odchodem z organizace nebo restartem prohlížeče.</li>
 </ol>
-<p>Rozšíření samo nikdy nevytváří ani nemaže záznamy a neprovádí hromadné změny.</p>
-<p>Data načtená z Dynamics 365 jsou jen v paměti stránky rozšíření, dokud je otevřená, a nikam se neodesílají. Secure configuration kroků pluginů se nikdy nečte.</p>
-<p>Pokud v Nastavení přidáte adresu on-premise nebo vlastního serveru Dynamics 365, rozšíření požádá Chrome o přístup jen k této adrese a funguje tam stejně; adresu můžete kdykoli odebrat. Tlačítko „Přispět přes PayPal" v Nastavení je obyčejný odkaz, který otevře PayPal v novém tabu — rozšíření PayPalu žádná data neposílá.</p>
-<p><strong>Lokální úložiště.</strong> Rozšíření ukládá jen zvolený jazyk a filtr Plugin Vieweru (<code>chrome.storage.local</code>), dočasný stav rozhraní, např. která pole byla odemčena, a aktivní impersonaci pro tab — ID a jméno vybraného uživatele (<code>chrome.storage.session</code>, smaže se zavřením prohlížeče). Tato data neopouštějí váš prohlížeč.</p>
+</li>
+</ul>
+<p>Rozšíření samo nikdy nevytváří ani nemaže záznamy a neprovádí hromadné změny. Každá akce je v rozhraní předem označená jako READ, LOCAL nebo WRITE.</p>
+<p>Data načtená z Dynamics 365 jsou jen v paměti stránky rozšíření, dokud je otevřená, a nikam se neodesílají. Secure configuration kroků pluginů se nikdy nečte. Konfigurace kroků pluginů a konfigurace a profil plug-in trace logů se zobrazují jako <code>********</code>; jednotlivá hodnota se načte jen po kliknutí na její zobrazení a nikdy není součástí kopírování, exportů ani snapshotu pro AI.</p>
+<p><strong>Analyze Current Context.</strong> Po kliknutí rozšíření sestaví textový souhrn aktuálního formuláře a jeho přizpůsobení (prostředí, tabulka, formulář, pole, vazby, kroky pluginů), který můžete zkopírovat nebo stáhnout, např. pro vložení do AI asistenta podle vaší volby. Hodnoty záznamu a plug-in trace logy obsahuje jen tehdy, když je zaškrtnete. Rozšíření samo souhrn nikam neodesílá.</p>
+<p>Pokud v Nastavení přidáte adresu on-premise nebo vlastního serveru Dynamics 365, rozšíření požádá Chrome o přístup jen k této adrese a funguje tam stejně; adresu můžete kdykoli odebrat. Tlačítko „Přispět přes PayPal" v Nastavení je obyčejný odkaz, který otevře PayPal v novém tabu. Rozšíření PayPalu žádná data neposílá.</p>
+<p><strong>Lokální úložiště.</strong> Rozšíření ukládá jen vaše nastavení: jazyk, světlý nebo tmavý motiv, skryté tipy a filtr Plugin Vieweru (<code>chrome.storage.local</code>). Dočasný stav je v <code>chrome.storage.session</code> a smaže se zavřením prohlížeče: které ovládací prvky formuláře byly odemčeny a jejich původní popisky (pro tab a záznam), uložené definice příkazů ribbonu (jen přizpůsobení, žádná data záznamů), zda je v tabu zapnuté ladění formuláře a pro jakou adresu organizace, a aktivní impersonace pro tab (ID, jméno a přihlašovací jméno vybraného uživatele a adresa organizace). Tato data neopouštějí váš prohlížeč.</p>
 <p><strong>Schránka a stahování.</strong> Text se zkopíruje do schránky nebo stáhne jako soubor jen po kliknutí na příslušné tlačítko.</p>
-<p><strong>Externí odkazy.</strong> Rozšíření otevře make.powerapps.com, www.tutka.cz nebo PayPal v nové záložce jen po kliknutí; žádná data se s odkazem neposílají.</p>
-<p><strong>Oprávnění.</strong> <code>activeTab</code>, <code>scripting</code> a přístup k <code>https://*.dynamics.com/*</code> slouží výhradně k funkcím výše na stránkách Dynamics 365; volitelný přístup k serveru se vyžádá jen pro adresu, kterou přidáte v Nastavení; <code>storage</code> pro uvedená nastavení a stav; <code>declarativeContent</code> k aktivaci ikony jen na stránkách Dynamics 365; <code>declarativeNetRequestWithHostAccess</code> jen pro impersonaci v jednom tabu, jak je popsáno výše — jiné požadavky ani hlavičky se nemění.</p>
+<p><strong>Externí odkazy.</strong> Rozšíření otevře make.powerapps.com, learn.microsoft.com, www.tutka.cz nebo PayPal v nové záložce jen po kliknutí. Odkaz do editoru formuláře na make.powerapps.com obsahuje identifikátory prostředí, řešení a formuláře, aby se v editoru Microsoftu otevřel správný formulář; jiná data se s odkazy neposílají.</p>
+<p><strong>Oprávnění.</strong> <code>activeTab</code>, <code>scripting</code> a přístup k <code>https://*.dynamics.com/*</code> slouží výhradně k funkcím výše na stránkách Dynamics 365; volitelný přístup k serveru se vyžádá jen pro adresu, kterou přidáte v Nastavení; <code>storage</code> pro uvedená nastavení a stav; <code>declarativeContent</code> k aktivaci ikony jen na stránkách Dynamics 365; <code>declarativeNetRequestWithHostAccess</code> jen pro impersonaci v jednom tabu, jak je popsáno výše. Jiné požadavky ani hlavičky se nemění.</p>
 <p><strong>Limited Use.</strong> Použití informací, které rozšíření získá, odpovídá zásadám Chrome Web Store User Data Policy včetně požadavků Limited Use.</p>
 <p><strong>Bez vazby na Microsoft.</strong> Microsoft, Dynamics 365 a Power Apps jsou ochranné známky skupiny Microsoft. Rozšíření není se společností Microsoft spojeno ani jí schváleno.</p>
 <p><strong>Kontakt.</strong> <a href="mailto:rudolf@tutka.cz">rudolf@tutka.cz</a></p>
